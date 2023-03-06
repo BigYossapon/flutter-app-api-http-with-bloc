@@ -90,7 +90,7 @@ class AddUserDataPage extends StatelessWidget {
                       ? Container()
                       : SizedBox(
                           height: 150,
-                          child: Image.file(uploadImage!),
+                          child: Image.file(uploadImage),
                         )),
               ElevatedButton.icon(
                   onPressed: () {},
