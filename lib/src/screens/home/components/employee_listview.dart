@@ -15,68 +15,63 @@ class employeeListview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => EmployeesdatagetBloc(
-        EmployeeRepository(),
-      )..add(LoadEmployeesdataEvent()),
-      child: BlocBuilder<EmployeesdatagetBloc, EmployeesdatagetState>(
-        builder: (context, state) {
-          if (state is EmployeesDataLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (state is EmployeesDataLoadedState) {
-            List<EmployeeModel> employeeList = state.employees;
-            return ListView.builder(
-                itemCount: employeeList.length,
-                shrinkWrap: true,
-                itemBuilder: (_, index) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                    child: Card(
-                      color: Theme.of(context).primaryColor,
-                      child: ListTile(
-                        title: Text(
-                          '${employeeList[index].name}',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        subtitle: Text(
-                          'Mail:${employeeList[index].mail}\nPhone:${employeeList[index].phone}\nAddress:${employeeList[index].address}\nPosition:${employeeList[index].position}',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/placeholder.jpg'),
-                          child: CircleAvatar(
-                              radius: 65,
-                              backgroundColor: Colors.transparent,
-                              backgroundImage: NetworkImage(
-                                  AppStrings.employeedomain +
-                                      'uploads/' +
-                                      employeeList[index]
-                                          .imageEmployee
-                                          .toString(),
-                                  headers: {
-                                    "Content-type": "application/json",
-                                    "Accept": "application/json",
-                                  })),
-                        ),
+    return BlocBuilder<EmployeesdatagetBloc, EmployeesdatagetState>(
+      builder: (context, state) {
+        if (state is EmployeesDataLoadingState) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is EmployeesDataLoadedState) {
+          List<EmployeeModel> employeeList = state.employees;
+          return ListView.builder(
+              itemCount: employeeList.length,
+              shrinkWrap: true,
+              itemBuilder: (_, index) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                  child: Card(
+                    color: Theme.of(context).primaryColor,
+                    child: ListTile(
+                      title: Text(
+                        '${employeeList[index].name}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      subtitle: Text(
+                        'Mail:${employeeList[index].mail}\nPhone:${employeeList[index].phone}\nAddress:${employeeList[index].address}\nPosition:${employeeList[index].position}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      leading: CircleAvatar(
+                        backgroundImage:
+                            AssetImage('assets/images/placeholder.jpg'),
+                        child: CircleAvatar(
+                            radius: 65,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: NetworkImage(
+                                AppStrings.employeedomain +
+                                    'uploads/' +
+                                    employeeList[index]
+                                        .imageEmployee
+                                        .toString(),
+                                headers: {
+                                  "Content-type": "application/json",
+                                  "Accept": "application/json",
+                                })),
                       ),
                     ),
-                  );
-                });
-          }
-          if (state is EmployeesDataErrorState) {
-            return const Center(
-              child: Text("Error"),
-            );
-          }
+                  ),
+                );
+              });
+        }
+        if (state is EmployeesDataErrorState) {
+          return const Center(
+            child: Text("Error"),
+          );
+        }
 
-          return Container();
-        },
-      ),
+        return Container();
+      },
     );
   }
 }

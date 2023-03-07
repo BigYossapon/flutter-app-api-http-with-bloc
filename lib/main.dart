@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final employeeDatagetBloc = BlocProvider<EmployeesdatagetBloc>(
         create: (BuildContext context) =>
-            EmployeesdatagetBloc(EmployeeRepository()));
+            EmployeesdatagetBloc(EmployeeRepository())
+              ..add(LoadEmployeesdataEvent()));
 
     return MultiBlocProvider(
       providers: [employeeDatagetBloc],
