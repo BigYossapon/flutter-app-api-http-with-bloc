@@ -9,17 +9,16 @@ part 'image_picker_event.dart';
 part 'image_picker_state.dart';
 
 class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
-  ImagePickerBloc() : super(ImagePickerSelectedState(ImageSource fileSource)) {
-    on<ImagePickerSelectEvent>((event, emit) {
-      File? uploadImage;
+  ImagePickerBloc() : super(ImagePickerPickingState()) {
+    on<ImagePickerPickEvent>((event, emit) {
       // TODO: implement event handler
-      Future<void> pickImagegallery() async {
+      Future pickImage() async {
         try {
-          var chooseImage =
-              await ImagePicker().pickImage(source: event.fileSource);
+          final uploadImage =
+              await ImagePicker().pickImage(source: ImageSource.gallery);
           if (uploadImage == null) return;
-          uploadImage = File(chooseImage!.path);
-          emit();
+          final imageTemp = File(uploadImage.path);
+          emit(ImagePickerPickedState(imageTemp));
         } on PlatformException catch (e) {
           print('Failed to pick image: $e');
         }

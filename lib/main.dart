@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_test01/src/app_route.dart';
 import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/get/employees/employeesdataget_bloc.dart';
 import 'package:flutter_app_test01/src/blocs/app_bloc_observe.dart';
+import 'package:flutter_app_test01/src/blocs/image_picker/image_picker_bloc.dart';
 import 'package:flutter_app_test01/src/data/repository/employee_repository.dart';
 import 'package:flutter_app_test01/src/screens/home/home_page.dart';
 
@@ -27,9 +28,11 @@ class MyApp extends StatelessWidget {
         create: (BuildContext context) =>
             EmployeesdatagetBloc(EmployeeRepository())
               ..add(LoadEmployeesdataEvent()));
+    final imagePickerBloc = BlocProvider<ImagePickerBloc>(
+        create: (BuildContext context) => ImagePickerBloc());
 
     return MultiBlocProvider(
-      providers: [employeeDatagetBloc],
+      providers: [employeeDatagetBloc, imagePickerBloc],
       child: MaterialApp(
         title: 'Flutter api with bloc',
         routes: AppRoute().getAll,

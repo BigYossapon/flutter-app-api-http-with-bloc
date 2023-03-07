@@ -5,11 +5,20 @@ abstract class ImagePickerState extends Equatable {
   List<Object> get props => [];
 }
 
-class ImagePickerSelectingState extends ImagePickerState {}
-
-class ImagePickerSelectedState extends ImagePickerState {
-  final File uploadImage;
-  ImagePickerSelectedState(this.uploadImage);
+class ImagePickerPickingState extends ImagePickerState {
+  @override
+  List<Object> get props => [];
 }
 
-class ImagePickerErrorState extends ImagePickerState {}
+class ImagePickerPickedState extends ImagePickerState {
+  final File file;
+  ImagePickerPickedState(this.file);
+  @override
+  List<Object> get props => [file];
+}
+
+class ImagePickerErrorState extends ImagePickerState {
+  late final String error;
+  @override
+  List<Object> get props => [error];
+}
