@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../app_route.dart';
 
@@ -17,6 +19,16 @@ class AddUserDataPage extends StatelessWidget {
     TextEditingController phone = TextEditingController();
     TextEditingController position = TextEditingController();
     File? uploadImage;
+    Future<void> pickImage() async {
+      try {
+        var chooseImage =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        if (uploadImage == null) return;
+        uploadImage = File(chooseImage!.path);
+      } on PlatformException catch (e) {
+        print('Failed to pick image: $e');
+      }
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -90,10 +102,12 @@ class AddUserDataPage extends StatelessWidget {
                       ? Container()
                       : SizedBox(
                           height: 150,
-                          child: Image.file(uploadImage),
+                          child: Image.file(uploadImage!),
                         )),
               ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    pickImage();
+                  },
                   icon: const Icon(Icons.folder_open),
                   label: const Text('choose image')),
               Container(
