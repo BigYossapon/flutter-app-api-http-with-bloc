@@ -9,7 +9,7 @@ part 'image_picker_event.dart';
 part 'image_picker_state.dart';
 
 class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
-  ImagePickerBloc() : super(ImagePickerSelectingState()) {
+  ImagePickerBloc() : super(ImagePickerSelectedState(ImageSource fileSource)) {
     on<ImagePickerSelectEvent>((event, emit) {
       File? uploadImage;
       // TODO: implement event handler
@@ -19,6 +19,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
               await ImagePicker().pickImage(source: event.fileSource);
           if (uploadImage == null) return;
           uploadImage = File(chooseImage!.path);
+          emit();
         } on PlatformException catch (e) {
           print('Failed to pick image: $e');
         }

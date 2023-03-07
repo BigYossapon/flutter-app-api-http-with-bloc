@@ -18,7 +18,6 @@ class AddUserDataPage extends StatelessWidget {
     TextEditingController address = TextEditingController();
     TextEditingController phone = TextEditingController();
     TextEditingController position = TextEditingController();
-    File? uploadImage;
 
     return Scaffold(
         appBar: AppBar(
