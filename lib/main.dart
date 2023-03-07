@@ -23,12 +23,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final employeeDataBloc = BlocProvider<EmployeesdatagetBloc>(
+    final employeeDatagetBloc = BlocProvider<EmployeesdatagetBloc>(
         create: (BuildContext context) =>
             EmployeesdatagetBloc(EmployeeRepository()));
 
     return MultiBlocProvider(
-      providers: [employeeDataBloc],
+      providers: [employeeDatagetBloc],
       child: MaterialApp(
         title: 'Flutter api with bloc',
         routes: AppRoute().getAll,

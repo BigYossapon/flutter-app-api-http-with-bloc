@@ -19,16 +19,6 @@ class AddUserDataPage extends StatelessWidget {
     TextEditingController phone = TextEditingController();
     TextEditingController position = TextEditingController();
     File? uploadImage;
-    Future<void> pickImage() async {
-      try {
-        var chooseImage =
-            await ImagePicker().pickImage(source: ImageSource.gallery);
-        if (uploadImage == null) return;
-        uploadImage = File(chooseImage!.path);
-      } on PlatformException catch (e) {
-        print('Failed to pick image: $e');
-      }
-    }
 
     return Scaffold(
         appBar: AppBar(
@@ -104,12 +94,18 @@ class AddUserDataPage extends StatelessWidget {
                           height: 150,
                           child: Image.file(uploadImage!),
                         )),
-              ElevatedButton.icon(
-                  onPressed: () {
-                    pickImage();
-                  },
-                  icon: const Icon(Icons.folder_open),
-                  label: const Text('choose image')),
+              Row(
+                children: [
+                  ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.browse_gallery),
+                      label: const Text('choose image from gallery')),
+                  ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.camera),
+                      label: const Text('choose image from camera')),
+                ],
+              ),
               Container(
                   child: uploadImage == null
                       ? Container()
