@@ -9,7 +9,7 @@ class AppRoute {
   static const editemployeedata = 'editemployeedata';
 
   final _route = <String, WidgetBuilder>{
-    home: (context) => const MyHomePage(title: "HomePage"),
+    home: (context) => const MyHomePage(),
     addemployeedata: (context) => const AddUserDataPage(),
     editemployeedata: (context) => const EditEmployeeDataPage()
   };

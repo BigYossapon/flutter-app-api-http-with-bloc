@@ -97,7 +97,7 @@ class AddUserDataPage extends StatelessWidget {
                                 ? Container()
                                 : SizedBox(
                                     height: 150,
-                                    child: Image.file(state.file!),
+                                    child: Image.file(state.file),
                                   )),
                         Row(
                           children: [
