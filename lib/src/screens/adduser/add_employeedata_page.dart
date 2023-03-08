@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_test01/src/blocs/image_picker/image_picker_bloc.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -86,32 +87,52 @@ class AddUserDataPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                  child: uploadImage == null
-                      ? Container()
-                      : SizedBox(
-                          height: 150,
-                          child: Image.file(uploadImage!),
-                        )),
-              Row(
-                children: [
-                  ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.browse_gallery),
-                      label: const Text('choose image from gallery')),
-                  ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.camera),
-                      label: const Text('choose image from camera')),
-                ],
-              ),
-              Container(
-                  child: uploadImage == null
-                      ? Container()
-                      : ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: const Icon(Icons.upload_file),
-                          label: const Text('upload data'))),
+              BlocBuilder<ImagePickerBloc, ImagePickerState>(
+                builder: (context, state) {
+                  if (state is ImagePickerPickedState) {
+                    return Column(
+                      children: [
+                        Container(
+                            child: state.file == null
+                                ? Container()
+                                : SizedBox(
+                                    height: 150,
+                                    child: Image.file(state.file!),
+                                  )),
+                        Row(
+                          children: [
+                            ElevatedButton.icon(
+                                onPressed: () {
+                                  context
+                                      .read<ImagePickerBloc>()
+                                      .add(ImagePickerPickEvent());
+                                },
+                                icon: const Icon(Icons.browse_gallery),
+                                label: const Text('choose image from gallery')),
+                            ElevatedButton.icon(
+                                onPressed: () {
+                                  context
+                                      .read<ImagePickerBloc>()
+                                      .add(ImagePickerPickEvent());
+                                },
+                                icon: const Icon(Icons.camera),
+                                label: const Text('choose image from camera')),
+                          ],
+                        ),
+                        Container(
+                            child: state.file == null
+                                ? Container()
+                                : ElevatedButton.icon(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.upload_file),
+                                    label: const Text('upload data'))),
+                      ],
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              )
             ],
           ),
         ));
