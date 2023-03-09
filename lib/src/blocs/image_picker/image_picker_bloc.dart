@@ -12,10 +12,11 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
   ImagePickerBloc() : super(ImagePickerPickingState()) {
     on<ImagePickerPickEvent>((event, emit) {
       // TODO: implement event handler
+
       Future pickImage() async {
         try {
           final uploadImage =
-              await ImagePicker().pickImage(source: ImageSource.gallery);
+              await ImagePicker().pickImage(source: event.imageSource);
           if (uploadImage == null) return;
           final imageTemp = File(uploadImage.path);
           emit(ImagePickerPickedState(imageTemp));
