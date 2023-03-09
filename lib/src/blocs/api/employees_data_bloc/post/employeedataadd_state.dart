@@ -9,11 +9,9 @@ class EmployeedataaddingState extends EmployeedataaddState {
 }
 
 class EmployeedataaddedState extends EmployeedataaddState {
-  final List<EmployeeModel> employee;
-  EmployeedataaddedState(this.employee);
   @override
   // TODO: implement props
-  List<Object?> get props => [employee];
+  List<Object?> get props => [];
 }
 
 class EmployeedataErrorState extends EmployeedataaddState {

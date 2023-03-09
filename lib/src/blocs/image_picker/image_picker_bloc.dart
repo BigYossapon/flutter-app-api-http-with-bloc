@@ -14,6 +14,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
       // TODO: implement event handler
 
       Future pickImage() async {
+        emit(ImagePickerPickingState());
         try {
           final uploadImage =
               await ImagePicker().pickImage(source: event.imageSource);
@@ -21,6 +22,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
           final imageTemp = File(uploadImage.path);
           emit(ImagePickerPickedState(imageTemp));
         } on PlatformException catch (e) {
+          emit(ImagePickerErrorState());
           print('Failed to pick image: $e');
         }
       }

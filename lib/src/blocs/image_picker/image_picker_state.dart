@@ -15,8 +15,8 @@ abstract class ImagePickerState extends Equatable {
 }
 
 class ImagePickerPickingState extends ImagePickerState {
-  final File file;
-  ImagePickerPickingState(this.file);
+  @override
+  List<Object> get props => [];
 }
 
 class ImagePickerPickedState extends ImagePickerState {
@@ -26,8 +26,6 @@ class ImagePickerPickedState extends ImagePickerState {
 
 class ImagePickerErrorState extends ImagePickerState {
   late final String error;
-  final File file;
-  ImagePickerErrorState(this.file);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [error];
 }

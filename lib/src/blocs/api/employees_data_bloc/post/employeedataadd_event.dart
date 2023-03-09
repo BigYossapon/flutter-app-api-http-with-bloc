@@ -5,6 +5,12 @@ abstract class EmployeedataaddEvent extends Equatable {
 }
 
 class AddEmployeedataEvent extends EmployeedataaddEvent {
+  File file;
+
+  AddEmployeedataEvent(
+    this.file,
+  );
+
   @override
   List<Object> get props => [];
 }

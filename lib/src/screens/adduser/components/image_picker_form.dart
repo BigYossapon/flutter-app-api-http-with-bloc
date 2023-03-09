@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class ImagePickerForm extends StatelessWidget {
   BuildContext buildContext;
   File file;
 
-  ImagePickerForm(this.buildContext, this.file, {Key? key}) : super(key: key);
+  ImagePickerForm(this.buildContext, this.file);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,11 @@ class ImagePickerForm extends StatelessWidget {
             child: file == null
                 ? Container()
                 : ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      List<int> imageBytes = file.readAsBytesSync();
+                      String baseimage = base64Encode(imageBytes);
+                      //event with bloc
+                    },
                     icon: const Icon(Icons.upload_file),
                     label: const Text('upload data'))),
       ],

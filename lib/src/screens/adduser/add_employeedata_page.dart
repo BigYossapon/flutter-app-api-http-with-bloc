@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -91,14 +92,14 @@ class AddUserDataPage extends StatelessWidget {
               ),
               BlocBuilder<ImagePickerBloc, ImagePickerState>(
                 builder: (context, state) {
-                  final File file;
                   if (state is ImagePickerPickedState) {
-                    return ImagePickerForm(context, state.file);
-                  }
-                  if (state is ImagePickerPickingState) {
-                    return ImagePickerForm(context, state.file);
+                    return Column(
+                      children: [
+                        ImagePickerForm(context, state.file),
+                      ],
+                    );
                   } else {
-                    return Container();
+                    return Buttonpickerimagewidget(context);
                   }
                 },
               )
