@@ -8,6 +8,6 @@ abstract class ImagePickerEvent extends Equatable {
 }
 
 class ImagePickerPickEvent extends ImagePickerEvent {
-  ImageSource imageSource;
-  ImagePickerPickEvent(this.imageSource);
+  File imageFile;
+  ImagePickerPickEvent(this.imageFile);
 }
