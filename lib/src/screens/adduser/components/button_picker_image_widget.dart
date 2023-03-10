@@ -15,22 +15,26 @@ class Buttonpickerimagewidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        ElevatedButton.icon(
-            onPressed: () {
-              buildContext
-                  .read<ImagePickerBloc>()
-                  .add(ImagePickerPickEvent(ImageSource.gallery));
-            },
-            icon: const Icon(Icons.browse_gallery),
-            label: const Text('choose image from gallery')),
-        ElevatedButton.icon(
-            onPressed: () {
-              buildContext
-                  .read<ImagePickerBloc>()
-                  .add(ImagePickerPickEvent(ImageSource.camera));
-            },
-            icon: const Icon(Icons.camera),
-            label: const Text('choose image from camera')),
+        Expanded(
+          child: ElevatedButton.icon(
+              onPressed: () {
+                buildContext
+                    .read<ImagePickerBloc>()
+                    .add(ImagePickerPickEvent(ImageSource.gallery));
+              },
+              icon: const Icon(Icons.browse_gallery),
+              label: const Text('choose image from gallery')),
+        ),
+        Expanded(
+          child: ElevatedButton.icon(
+              onPressed: () {
+                buildContext
+                    .read<ImagePickerBloc>()
+                    .add(ImagePickerPickEvent(ImageSource.camera));
+              },
+              icon: const Icon(Icons.camera),
+              label: const Text('choose image from camera')),
+        )
       ],
     );
   }

@@ -1,15 +1,20 @@
 // To parse this JSON data, do
 //
 //     final employeeModel = employeeModelFromJson(jsonString);
-
+import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
-EmployeeModel employeeModelFromJson(String str) =>
-    EmployeeModel.fromJson(json.decode(str));
+part 'employee_model.g.dart';
 
-String employeeModelToJson(EmployeeModel data) => json.encode(data.toJson());
-
+@JsonSerializable()
 class EmployeeModel {
+  String name;
+  String phone;
+  String address;
+  String position;
+  String mail;
+  String imageEmployee;
+
   EmployeeModel({
     required this.name,
     required this.phone,
@@ -19,28 +24,8 @@ class EmployeeModel {
     required this.imageEmployee,
   });
 
-  String name;
-  String phone;
-  String address;
-  String position;
-  String mail;
-  String imageEmployee;
+  factory EmployeeModel.fromJson(Map<String, dynamic> json) =>
+      _$EmployeeModelFromJson(json);
 
-  factory EmployeeModel.fromJson(Map<String, dynamic> json) => EmployeeModel(
-        name: json["Name"],
-        phone: json["Phone"],
-        address: json["Address"],
-        position: json["Position"],
-        mail: json["Mail"],
-        imageEmployee: json["Image_employee"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "Name": name,
-        "Phone": phone,
-        "Address": address,
-        "Position": position,
-        "Mail": mail,
-        "Image_employee": imageEmployee,
-      };
+  Map<String, dynamic> toJson() => _$EmployeeModelToJson(this);
 }
