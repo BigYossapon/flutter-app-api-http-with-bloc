@@ -24,8 +24,7 @@ class EmployeeRepository {
     String url = AppStrings.employeeUrl + 'add';
     final response = await http.post(Uri.parse(url),
         body: json.encode(employeeModel.toJson()));
-    if (response.statusCode == 200) {
-    } else {
+    if (response.statusCode != 200) {
       throw Exception(response.reasonPhrase);
       log("no model");
     }

@@ -16,12 +16,12 @@ class EmployeeModel {
   String? imageEmployee;
 
   EmployeeModel({
-    required this.name,
-    required this.phone,
-    required this.address,
-    required this.position,
-    required this.mail,
-    required this.imageEmployee,
+    this.name,
+    this.phone,
+    this.address,
+    this.position,
+    this.mail,
+    this.imageEmployee,
   });
 
   factory EmployeeModel.fromJson(Map<String, dynamic> json) =>

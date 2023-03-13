@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/post/employeedataadd_bloc.dart';
 import 'package:flutter_app_test01/src/blocs/image_picker/image_picker_bloc.dart';
 import 'package:flutter_app_test01/src/data/model/employee_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,24 +60,31 @@ class ImagePickerForm extends StatelessWidget {
             )
           ],
         ),
-        Container(
-            child: file == null
-                ? Container()
-                : ElevatedButton.icon(
-                    onPressed: () {
-                      List<int> imageBytes = file.readAsBytesSync();
-                      String baseimage = base64Encode(imageBytes);
-                      //event with bloc
-                      EmployeeModel employeeModel = EmployeeModel(
-                          name: name,
-                          phone: phone,
-                          address: address,
-                          position: position,
-                          mail: mail,
-                          imageEmployee: baseimage);
-                    },
-                    icon: const Icon(Icons.upload_file),
-                    label: const Text('upload data'))),
+        BlocBuilder<EmployeedataaddBloc, EmployeedataaddState>(
+            builder: (context, state) {
+          return Container(
+              child: file == null
+                  ? Container()
+                  : ElevatedButton.icon(
+                      onPressed: () {
+                        List<int> imageBytes = file.readAsBytesSync();
+                        String baseimage = base64Encode(imageBytes);
+                        //event with bloc
+                        EmployeeModel employeeModel = EmployeeModel(
+                            name: name,
+                            phone: phone,
+                            address: address,
+                            position: position,
+                            mail: mail,
+                            imageEmployee: baseimage);
+
+                        context
+                            .read<EmployeedataaddBloc>()
+                            .add(AddEmployeedataEvent(employeeModel));
+                      },
+                      icon: const Icon(Icons.upload_file),
+                      label: const Text('upload data')));
+        }),
       ],
     );
   }
