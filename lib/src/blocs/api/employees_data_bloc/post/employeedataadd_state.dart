@@ -20,5 +20,5 @@ class EmployeedataErrorState extends EmployeedataaddState {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [error];
 }

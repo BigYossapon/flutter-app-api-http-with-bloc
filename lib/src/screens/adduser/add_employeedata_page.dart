@@ -94,7 +94,8 @@ class AddUserDataPage extends StatelessWidget {
                   if (state is ImagePickerPickedState) {
                     return Column(
                       children: [
-                        ImagePickerForm(context, state.file),
+                        ImagePickerForm(context, state.file, name.text,
+                            mail.text, address.text, phone.text, position.text),
                       ],
                     );
                   } else {

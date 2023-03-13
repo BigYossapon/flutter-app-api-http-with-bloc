@@ -1,7 +1,6 @@
-import 'dart:html';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_app_test01/src/data/repository/employee_repository.dart';
 
 import '../../../../data/model/employee_model.dart';
 
@@ -10,9 +9,20 @@ part 'employeedataadd_state.dart';
 
 class EmployeedataaddBloc
     extends Bloc<EmployeedataaddEvent, EmployeedataaddState> {
-  EmployeedataaddBloc() : super(EmployeedataaddingState()) {
-    on<AddEmployeedataEvent>((event, emit) {
+  final EmployeeRepository _employeeRepository;
+
+  EmployeedataaddBloc(this._employeeRepository)
+      : super(EmployeedataaddingState()) {
+    on<AddEmployeedataEvent>((event, emit) async {
       // TODO: implement event handler
+      emit(EmployeedataaddingState());
+      try {
+        final employee =
+            await _employeeRepository.postEmployeeData(event.employeeModel);
+        emit(EmployeedataaddedState());
+      } catch (e) {
+        print(e.toString());
+      }
     });
   }
 }

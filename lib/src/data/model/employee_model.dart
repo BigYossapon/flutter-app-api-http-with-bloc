@@ -8,12 +8,12 @@ part 'employee_model.g.dart';
 
 @JsonSerializable()
 class EmployeeModel {
-  String name;
-  String phone;
-  String address;
-  String position;
-  String mail;
-  String imageEmployee;
+  String? name;
+  String? phone;
+  String? address;
+  String? position;
+  String? mail;
+  String? imageEmployee;
 
   EmployeeModel({
     required this.name,

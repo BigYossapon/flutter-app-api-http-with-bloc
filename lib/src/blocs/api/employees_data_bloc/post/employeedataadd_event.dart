@@ -5,10 +5,10 @@ abstract class EmployeedataaddEvent extends Equatable {
 }
 
 class AddEmployeedataEvent extends EmployeedataaddEvent {
-  File file;
+  EmployeeModel employeeModel;
 
   AddEmployeedataEvent(
-    this.file,
+    this.employeeModel,
   );
 
   @override

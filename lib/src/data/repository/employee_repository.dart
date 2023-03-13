@@ -22,7 +22,8 @@ class EmployeeRepository {
   @override
   Future<void> postEmployeeData(EmployeeModel employeeModel) async {
     String url = AppStrings.employeeUrl + 'add';
-    final response = await http.post(Uri.parse(url), body: employeeModel);
+    final response = await http.post(Uri.parse(url),
+        body: json.encode(employeeModel.toJson()));
     if (response.statusCode == 200) {
     } else {
       throw Exception(response.reasonPhrase);

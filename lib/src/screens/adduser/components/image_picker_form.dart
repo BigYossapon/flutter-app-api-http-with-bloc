@@ -7,6 +7,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_app_test01/src/blocs/image_picker/image_picker_bloc.dart';
+import 'package:flutter_app_test01/src/data/model/employee_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -14,8 +15,16 @@ import 'package:permission_handler/permission_handler.dart';
 class ImagePickerForm extends StatelessWidget {
   final BuildContext buildContext;
   final File file;
+  final String name;
+  final String mail;
+  final String address;
+  final String phone;
+  final String position;
 
-  ImagePickerForm(this.buildContext, this.file);
+  ImagePickerForm(this.buildContext, this.file, this.name, this.mail,
+      this.address, this.phone, this.position,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +67,13 @@ class ImagePickerForm extends StatelessWidget {
                       List<int> imageBytes = file.readAsBytesSync();
                       String baseimage = base64Encode(imageBytes);
                       //event with bloc
+                      EmployeeModel employeeModel = EmployeeModel(
+                          name: name,
+                          phone: phone,
+                          address: address,
+                          position: position,
+                          mail: mail,
+                          imageEmployee: baseimage);
                     },
                     icon: const Icon(Icons.upload_file),
                     label: const Text('upload data'))),
