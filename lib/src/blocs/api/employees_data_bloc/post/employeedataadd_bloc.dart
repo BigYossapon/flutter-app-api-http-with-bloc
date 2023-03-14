@@ -21,6 +21,7 @@ class EmployeedataaddBloc
             await _employeeRepository.postEmployeeData(event.employeeModel);
         emit(EmployeedataaddedState());
       } catch (e) {
+        emit(EmployeedataErrorState(e.toString()));
         print(e.toString());
       }
     });
