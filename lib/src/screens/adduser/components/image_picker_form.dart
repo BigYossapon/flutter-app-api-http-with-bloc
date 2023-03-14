@@ -78,9 +78,9 @@ class ImagePickerForm extends StatelessWidget {
                             mail: mail,
                             imageEmployee: baseimage);
 
-                        context
-                            .read<EmployeedataaddBloc>()
-                            .add(AddEmployeedataEvent(employeeModel));
+                        context.read<EmployeedataaddBloc>().add(
+                            AddEmployeedataEvent(
+                                name, mail, address, phone, position, file));
                       },
                       icon: const Icon(Icons.upload_file),
                       label: const Text('upload data')));
