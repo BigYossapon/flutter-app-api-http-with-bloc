@@ -66,11 +66,10 @@ class EmployeeRepository {
   }
 
   @override
-  Future<void> deleteEmployeeData() async {
-    String url = AppStrings.employeeUrl + 'add';
+  Future<void> deleteEmployeeData(String id) async {
+    String url = AppStrings.employeeUrl + 'delete/' + id;
     final response = await http.post(Uri.parse(url));
     if (response.statusCode == 200) {
-      log(response.body);
     } else {
       throw Exception(response.reasonPhrase);
       log("no model");

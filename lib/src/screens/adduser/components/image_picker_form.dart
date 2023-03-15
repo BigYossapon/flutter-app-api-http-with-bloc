@@ -67,16 +67,16 @@ class ImagePickerForm extends StatelessWidget {
                   ? Container()
                   : ElevatedButton.icon(
                       onPressed: () {
-                        List<int> imageBytes = file.readAsBytesSync();
-                        String baseimage = base64Encode(imageBytes);
-                        //event with bloc
-                        EmployeeModel employeeModel = EmployeeModel(
-                            name: name,
-                            phone: phone,
-                            address: address,
-                            position: position,
-                            mail: mail,
-                            imageEmployee: baseimage);
+                        // List<int> imageBytes = file.readAsBytesSync();
+                        // String baseimage = base64Encode(imageBytes);
+                        // //event with bloc
+                        // EmployeeModel employeeModel = EmployeeModel(
+                        //     name: name,
+                        //     phone: phone,
+                        //     address: address,
+                        //     position: position,
+                        //     mail: mail,
+                        //     imageEmployee: baseimage);
 
                         context.read<EmployeedataaddBloc>().add(
                             AddEmployeedataEvent(

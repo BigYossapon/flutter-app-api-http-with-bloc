@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_test01/components/dialog_select.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/api/employees_data_bloc/get/employees/employeesdataget_bloc.dart';
@@ -59,6 +60,9 @@ class employeeListview extends StatelessWidget {
                                   "Accept": "application/json",
                                 })),
                       ),
+                      onTap: () {
+                        DialogSelect(context, employeeList[index].id);
+                      },
                     ),
                   ),
                 );

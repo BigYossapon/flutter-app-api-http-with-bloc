@@ -21,8 +21,8 @@ class EmployeedataaddBloc
       try {
         //final employee =
         // await _employeeRepository.postEmployeeData(event.employeeModel);
-        final employee = await _employeeRepository.postEmployeeData(event.name,
-            event.mail, event.address, event.phone, event.position, event.file);
+        await _employeeRepository.postEmployeeData(event.name, event.mail,
+            event.address, event.phone, event.position, event.file);
         emit(EmployeedataaddedState());
       } catch (e) {
         emit(EmployeedataErrorState(e.toString()));
