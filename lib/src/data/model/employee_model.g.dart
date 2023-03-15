@@ -8,7 +8,7 @@ part of 'employee_model.dart';
 
 EmployeeModel _$EmployeeModelFromJson(Map<String, dynamic> json) =>
     EmployeeModel(
-      id: json['ID'] as String?,
+      id: json['ID'] as int?,
       name: json['Name'] as String?,
       phone: json['Phone'] as String?,
       address: json['Address'] as String?,

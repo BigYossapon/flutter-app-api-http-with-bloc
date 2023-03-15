@@ -8,8 +8,10 @@ class EmployeedatadeletingState extends EmployeedatadeleteState {
 }
 
 class EmployeedatadeletedState extends EmployeedatadeleteState {
+  String status;
+  EmployeedatadeletedState(this.status);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [status];
 }
 
 class EmployeedatadeleteErrorgState extends EmployeedatadeleteState {

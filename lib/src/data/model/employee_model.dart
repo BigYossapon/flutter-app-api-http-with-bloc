@@ -8,7 +8,7 @@ part 'employee_model.g.dart';
 
 @JsonSerializable()
 class EmployeeModel {
-  String? id;
+  int? id;
   String? name;
   String? phone;
   String? address;

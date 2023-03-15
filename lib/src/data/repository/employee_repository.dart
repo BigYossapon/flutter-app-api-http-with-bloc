@@ -57,7 +57,7 @@ class EmployeeRepository {
   @override
   Future<void> putEmployeeData() async {
     String url = AppStrings.employeeUrl + 'edit/';
-    final response = await http.post(Uri.parse(url));
+    final response = await http.put(Uri.parse(url));
     if (response.statusCode == 200) {
     } else {
       throw Exception(response.reasonPhrase);
@@ -66,9 +66,9 @@ class EmployeeRepository {
   }
 
   @override
-  Future<void> deleteEmployeeData(String id) async {
-    String url = AppStrings.employeeUrl + 'delete/' + id;
-    final response = await http.post(Uri.parse(url));
+  Future<void> deleteEmployeeData(int id) async {
+    String url = AppStrings.employeeUrl + 'delete/$id';
+    final response = await http.delete(Uri.parse(url));
     if (response.statusCode == 200) {
     } else {
       throw Exception(response.reasonPhrase);

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test01/components/dialog_select.dart';
+import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/delete/employeedatadelete_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/api/employees_data_bloc/get/employees/employeesdataget_bloc.dart';
@@ -17,14 +18,15 @@ class employeeListview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EmployeesdatagetBloc, EmployeesdatagetState>(
-      builder: (context, state) {
-        if (state is EmployeesDataLoadingState) {
+        builder: (contextget, stateget) {
+      return BlocBuilder<EmployeedatadeleteBloc, EmployeedatadeleteState>(
+          builder: (contextdelete, statedelete) {
+        if (stateget is EmployeesDataLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        }
-        if (state is EmployeesDataLoadedState) {
-          List<EmployeeModel> employeeList = state.employees;
+        } else if (stateget is EmployeesDataLoadedState) {
+          List<EmployeeModel> employeeList = stateget.employees;
           return ListView.builder(
               itemCount: employeeList.length,
               shrinkWrap: true,
@@ -61,21 +63,33 @@ class employeeListview extends StatelessWidget {
                                 })),
                       ),
                       onTap: () {
-                        DialogSelect(context, employeeList[index].id);
+                        _dialogBuilder(contextdelete, employeeList[index].id);
                       },
                     ),
                   ),
                 );
               });
         }
-        if (state is EmployeesDataErrorState) {
-          return const Center(
-            child: Text("Error"),
-          );
-        }
-
+        // if (statedelete is EmployeedatadeletedState) {
+        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     content: Text(statedelete.status),
+        //   ));
+        // } else if (statedelete is EmployeedatadeleteErrorgState) {
+        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     content: Text(statedelete.error),
+        //   ));
+        // }
         return Container();
-      },
-    );
+      });
+    });
   }
+}
+
+Future<void> _dialogBuilder(BuildContext buildcontext, int? id) {
+  return showDialog<void>(
+    context: buildcontext,
+    builder: (BuildContext context) {
+      return DialogSelect(buildcontext, id);
+    },
+  );
 }

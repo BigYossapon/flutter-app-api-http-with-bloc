@@ -5,7 +5,7 @@ abstract class EmployeedatadeleteEvent extends Equatable {
 }
 
 class DeleteEmployeedataEvent extends EmployeedatadeleteEvent {
-  String id;
+  int id;
   DeleteEmployeedataEvent(this.id);
   @override
   List<Object> get props => [];

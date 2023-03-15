@@ -15,7 +15,8 @@ class EmployeedatadeleteBloc
       emit(EmployeedatadeletingState());
       try {
         await _employeeRepository.deleteEmployeeData(event.id);
-        emit(EmployeedatadeletedState());
+
+        emit(EmployeedatadeletedState('Delete Success'));
       } catch (e) {
         emit(EmployeedatadeleteErrorgState(e.toString()));
         print(e.toString());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/delete/employeedatadelete_bloc.dart';
 import 'package:flutter_app_test01/src/screens/home/components/employee_listview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../app_route.dart';
@@ -14,6 +15,9 @@ class MyHomePage extends StatelessWidget {
         create: (BuildContext context) =>
             EmployeesdatagetBloc(EmployeeRepository())
               ..add(LoadEmployeesdataEvent()));
+    final employeedatadeleteBloc = BlocProvider<EmployeedatadeleteBloc>(
+        create: (BuildContext context) =>
+            EmployeedatadeleteBloc(EmployeeRepository()));
     return Scaffold(
         appBar: AppBar(
           title: Text("Detail Employees"),
@@ -26,6 +30,7 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
         body: MultiBlocProvider(
-            providers: [employeeDatagetBloc], child: const employeeListview()));
+            providers: [employeeDatagetBloc, employeedatadeleteBloc],
+            child: const employeeListview()));
   }
 }
