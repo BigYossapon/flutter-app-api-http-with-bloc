@@ -25,26 +25,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final employeeDatagetBloc = BlocProvider<EmployeesdatagetBloc>(
-        create: (BuildContext context) =>
-            EmployeesdatagetBloc(EmployeeRepository())
-              ..add(LoadEmployeesdataEvent()));
-    final imagePickerBloc = BlocProvider<ImagePickerBloc>(
-        create: (BuildContext context) => ImagePickerBloc());
-    final employeeDatapostBloc = BlocProvider<EmployeedataaddBloc>(
-        create: (BuildContext context) =>
-            EmployeedataaddBloc(EmployeeRepository()));
-
-    return MultiBlocProvider(
-      providers: [employeeDatagetBloc, imagePickerBloc, employeeDatapostBloc],
-      child: MaterialApp(
-        title: 'Flutter api with bloc',
-        routes: AppRoute().getAll,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const MyHomePage(),
+    return MaterialApp(
+      title: 'Flutter api with bloc',
+      routes: AppRoute().getAll,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: const MyHomePage(),
     );
   }
 }
