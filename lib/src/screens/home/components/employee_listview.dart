@@ -70,15 +70,15 @@ class employeeListview extends StatelessWidget {
                 );
               });
         }
-        // if (statedelete is EmployeedatadeletedState) {
-        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //     content: Text(statedelete.status),
-        //   ));
-        // } else if (statedelete is EmployeedatadeleteErrorgState) {
-        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //     content: Text(statedelete.error),
-        //   ));
-        // }
+        if (statedelete is EmployeedatadeletedState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(statedelete.status),
+          ));
+        } else if (statedelete is EmployeedatadeleteErrorgState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(statedelete.error),
+          ));
+        }
         return Container();
       });
     });

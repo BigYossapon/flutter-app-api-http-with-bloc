@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class ImagePickerForm extends StatelessWidget {
+class ImagePickerFormEdit extends StatelessWidget {
   final BuildContext buildContext;
   final File file;
   final String name;
@@ -22,7 +22,7 @@ class ImagePickerForm extends StatelessWidget {
   final String phone;
   final String position;
 
-  ImagePickerForm(this.buildContext, this.file, this.name, this.mail,
+  ImagePickerFormEdit(this.buildContext, this.file, this.name, this.mail,
       this.address, this.phone, this.position,
       {Key? key})
       : super(key: key);
@@ -62,6 +62,15 @@ class ImagePickerForm extends StatelessWidget {
         ),
         BlocBuilder<EmployeedataaddBloc, EmployeedataaddState>(
             builder: (context, state) {
+          if (state is EmployeedataaddedState) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Delete SUCCESS'),
+            ));
+          }
+          if (state is EmployeedataErrorState) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('Delete ERROR')));
+          }
           return Container(
               child: file == null
                   ? Container()

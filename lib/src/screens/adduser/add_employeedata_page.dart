@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_test01/src/blocs/image_picker/image_picker_bloc.dart';
-import 'package:flutter_app_test01/src/screens/adduser/components/button_picker_image_widget.dart';
-import 'package:flutter_app_test01/src/screens/adduser/components/image_picker_form.dart';
+
+import 'package:flutter_app_test01/src/screens/adduser/components/image_picker_form_add.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../app_route.dart';
 import '../../blocs/api/employees_data_bloc/post/employeedataadd_bloc.dart';
 import '../../data/repository/employee_repository.dart';
+import 'components/button_picker_image_add_widget.dart';
 
 class AddUserDataPage extends StatelessWidget {
   const AddUserDataPage({Key? key}) : super(key: key);
@@ -102,7 +103,7 @@ class AddUserDataPage extends StatelessWidget {
                       if (state is ImagePickerPickedState) {
                         return Column(
                           children: [
-                            ImagePickerForm(
+                            ImagePickerFormAdd(
                                 context,
                                 state.file,
                                 name.text,
@@ -112,9 +113,8 @@ class AddUserDataPage extends StatelessWidget {
                                 position.text),
                           ],
                         );
-                      } else {
-                        return Buttonpickerimagewidget(context);
                       }
+                      return Buttonpickerimageaddwidget(context);
                     },
                   )
                 ],

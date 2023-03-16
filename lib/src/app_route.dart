@@ -11,7 +11,7 @@ class AppRoute {
   final _route = <String, WidgetBuilder>{
     home: (context) => const MyHomePage(),
     addemployeedata: (context) => const AddUserDataPage(),
-    editemployeedata: (context) => const EditEmployeeDataPage()
+    editemployeedata: (context) => EditEmployeeDataPage()
   };
 
   get getAll => _route;
