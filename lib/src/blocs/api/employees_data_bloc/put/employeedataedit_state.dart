@@ -13,14 +13,16 @@ class EmployeedataeditingState extends EmployeedataeditState {
 }
 
 class EmployeedataeditedState extends EmployeedataeditState {
+  String status;
+  EmployeedataeditedState(this.status);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [status];
 }
 
 class EmployeedataeditErrorState extends EmployeedataeditState {
-  String error;
-  EmployeedataeditErrorState(this.error);
+  String status;
+  EmployeedataeditErrorState(this.status);
 
   @override
-  List<Object> get props => [error];
+  List<Object> get props => [status];
 }

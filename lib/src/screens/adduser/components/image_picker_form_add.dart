@@ -13,16 +13,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class ImagePickerForm extends StatelessWidget {
+class ImagePickerFormAdd extends StatelessWidget {
   final BuildContext buildContext;
-  final File file;
-  final String name;
-  final String mail;
-  final String address;
-  final String phone;
-  final String position;
+  final File? file;
+  final String? name;
+  final String? mail;
+  final String? address;
+  final String? phone;
+  final String? position;
 
-  ImagePickerForm(this.buildContext, this.file, this.name, this.mail,
+  ImagePickerFormAdd(this.buildContext, this.file, this.name, this.mail,
       this.address, this.phone, this.position,
       {Key? key})
       : super(key: key);
@@ -36,7 +36,8 @@ class ImagePickerForm extends StatelessWidget {
                 ? Container()
                 : SizedBox(
                     height: 150,
-                    child: Image.file(file),
+                    width: 150,
+                    child: Image.file(file!),
                   )),
         Row(
           children: [
@@ -64,32 +65,21 @@ class ImagePickerForm extends StatelessWidget {
             builder: (context, state) {
           if (state is EmployeedataaddedState) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Delete SUCCESS'),
+              content: Text(state.status),
             ));
           }
           if (state is EmployeedataErrorState) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Delete ERROR')));
+                .showSnackBar(SnackBar(content: Text(state.status)));
           }
           return Container(
               child: file == null
                   ? Container()
                   : ElevatedButton.icon(
                       onPressed: () {
-                        // List<int> imageBytes = file.readAsBytesSync();
-                        // String baseimage = base64Encode(imageBytes);
-                        // //event with bloc
-                        // EmployeeModel employeeModel = EmployeeModel(
-                        //     name: name,
-                        //     phone: phone,
-                        //     address: address,
-                        //     position: position,
-                        //     mail: mail,
-                        //     imageEmployee: baseimage);
-
                         context.read<EmployeedataaddBloc>().add(
-                            AddEmployeedataEvent(
-                                name, mail, address, phone, position, file));
+                            AddEmployeedataEvent(name!, mail!, address!, phone!,
+                                position!, file!));
                       },
                       icon: const Icon(Icons.upload_file),
                       label: const Text('upload data')));

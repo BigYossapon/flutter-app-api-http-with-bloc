@@ -12,7 +12,6 @@ import 'package:image_picker/image_picker.dart';
 import '../../app_route.dart';
 import '../../blocs/api/employees_data_bloc/post/employeedataadd_bloc.dart';
 import '../../data/repository/employee_repository.dart';
-import 'components/button_picker_image_add_widget.dart';
 
 class AddUserDataPage extends StatelessWidget {
   const AddUserDataPage({Key? key}) : super(key: key);
@@ -114,7 +113,8 @@ class AddUserDataPage extends StatelessWidget {
                           ],
                         );
                       }
-                      return Buttonpickerimageaddwidget(context);
+                      return ImagePickerFormAdd(
+                          context, null, null, null, null, null, null);
                     },
                   )
                 ],

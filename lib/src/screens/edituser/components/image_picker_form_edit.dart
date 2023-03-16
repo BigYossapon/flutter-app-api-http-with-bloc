@@ -13,17 +13,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../blocs/api/employees_data_bloc/put/employeedataedit_bloc.dart';
+
 class ImagePickerFormEdit extends StatelessWidget {
   final BuildContext buildContext;
-  final File file;
-  final String name;
-  final String mail;
-  final String address;
-  final String phone;
-  final String position;
+  final File? file;
+  final String? name;
+  final String? mail;
+  final String? address;
+  final String? phone;
+  final String? position;
+  final String? baseImage;
 
   ImagePickerFormEdit(this.buildContext, this.file, this.name, this.mail,
-      this.address, this.phone, this.position,
+      this.address, this.phone, this.position, this.baseImage,
       {Key? key})
       : super(key: key);
 
@@ -33,10 +36,14 @@ class ImagePickerFormEdit extends StatelessWidget {
       children: [
         Container(
             child: file == null
-                ? Container()
+                ? SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.network(baseImage!),
+                  )
                 : SizedBox(
                     height: 150,
-                    child: Image.file(file),
+                    child: Image.file(file!),
                   )),
         Row(
           children: [
@@ -60,39 +67,29 @@ class ImagePickerFormEdit extends StatelessWidget {
             )
           ],
         ),
-        BlocBuilder<EmployeedataaddBloc, EmployeedataaddState>(
+        //bloc edit data
+        BlocBuilder<EmployeedataeditBloc, EmployeedataeditState>(
             builder: (context, state) {
-          if (state is EmployeedataaddedState) {
+          if (state is EmployeedataeditedState) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Delete SUCCESS'),
+              content: Text(state.status),
             ));
           }
-          if (state is EmployeedataErrorState) {
+          if (state is EmployeedataeditErrorState) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Delete ERROR')));
+                .showSnackBar(SnackBar(content: Text(state.status)));
           }
           return Container(
               child: file == null
                   ? Container()
                   : ElevatedButton.icon(
                       onPressed: () {
-                        // List<int> imageBytes = file.readAsBytesSync();
-                        // String baseimage = base64Encode(imageBytes);
-                        // //event with bloc
-                        // EmployeeModel employeeModel = EmployeeModel(
-                        //     name: name,
-                        //     phone: phone,
-                        //     address: address,
-                        //     position: position,
-                        //     mail: mail,
-                        //     imageEmployee: baseimage);
-
                         context.read<EmployeedataaddBloc>().add(
-                            AddEmployeedataEvent(
-                                name, mail, address, phone, position, file));
+                            AddEmployeedataEvent(name!, mail!, address!, phone!,
+                                position!, file!));
                       },
-                      icon: const Icon(Icons.upload_file),
-                      label: const Text('upload data')));
+                      icon: const Icon(Icons.edit),
+                      label: const Text('Edit data')));
         }),
       ],
     );

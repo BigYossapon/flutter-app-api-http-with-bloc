@@ -55,11 +55,25 @@ class EmployeeRepository {
   }
 
   @override
-  Future<void> putEmployeeData() async {
-    String url = AppStrings.employeeUrl + 'edit/';
-    final response = await http.put(Uri.parse(url));
-    if (response.statusCode == 200) {
-    } else {
+  Future<void> putEmployeeData(int id, String name, String mail, String phone,
+      String address, String position, File file) async {
+    Map<String, String> body = {
+      'Name': name,
+      'Mail': mail,
+      'Address': address,
+      'Phone': phone,
+      'Position': position,
+    };
+    Map<String, String> headers = {
+      'Content-Type': 'multipart/form-data',
+    };
+    String url = AppStrings.employeeUrl + 'edit/part/$id';
+    final request = await http.MultipartRequest('PUT', Uri.parse(url))
+      ..fields.addAll(body)
+      ..headers.addAll(headers)
+      ..files;
+    final response = await request.send();
+    if (response.statusCode != 200) {
       throw Exception(response.reasonPhrase);
       log("no model");
     }
@@ -69,8 +83,7 @@ class EmployeeRepository {
   Future<void> deleteEmployeeData(int id) async {
     String url = AppStrings.employeeUrl + 'delete/$id';
     final response = await http.delete(Uri.parse(url));
-    if (response.statusCode == 200) {
-    } else {
+    if (response.statusCode != 200) {
       throw Exception(response.reasonPhrase);
       log("no model");
     }

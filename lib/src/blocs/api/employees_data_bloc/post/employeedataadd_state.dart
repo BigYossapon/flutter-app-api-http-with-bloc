@@ -9,16 +9,18 @@ class EmployeedataaddingState extends EmployeedataaddState {
 }
 
 class EmployeedataaddedState extends EmployeedataaddState {
+  String status;
+  EmployeedataaddedState(this.status);
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [status];
 }
 
 class EmployeedataErrorState extends EmployeedataaddState {
-  late final String error;
-  EmployeedataErrorState(this.error);
+  late final String status;
+  EmployeedataErrorState(this.status);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [error];
+  List<Object?> get props => [status];
 }
