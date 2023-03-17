@@ -63,7 +63,17 @@ class employeeListview extends StatelessWidget {
                                 })),
                       ),
                       onTap: () {
-                        _dialogBuilder(contextdelete, employeeList[index].id);
+                        _dialogBuilder(
+                            contextdelete,
+                            employeeList[index].id,
+                            employeeList[index].name,
+                            employeeList[index].mail,
+                            employeeList[index].address,
+                            employeeList[index].phone,
+                            employeeList[index].position,
+                            AppStrings.employeedomain +
+                                'uploads/' +
+                                employeeList[index].imageEmployee.toString());
                       },
                     ),
                   ),
@@ -85,11 +95,20 @@ class employeeListview extends StatelessWidget {
   }
 }
 
-Future<void> _dialogBuilder(BuildContext buildcontext, int? id) {
+Future<void> _dialogBuilder(
+    BuildContext buildcontext,
+    int? id,
+    String? name,
+    String? mail,
+    String? address,
+    String? phone,
+    String? position,
+    String? baseImage) {
   return showDialog<void>(
     context: buildcontext,
     builder: (BuildContext context) {
-      return DialogSelect(buildcontext, id);
+      return DialogSelect(
+          buildcontext, id, name, mail, address, phone, position, baseImage);
     },
   );
 }

@@ -5,6 +5,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/delete/employeedatadelete_bloc.dart';
+import 'package:flutter_app_test01/src/screens/edituser/edit_employeedata_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../src/app_route.dart';
@@ -12,8 +13,17 @@ import '../src/app_route.dart';
 class DialogSelect extends StatelessWidget {
   BuildContext buildContext;
   int? id;
+  String? name;
+  String? mail;
+  String? address;
+  String? phone;
+  String? position;
+  String? baseImage;
 
-  DialogSelect(this.buildContext, this.id, {Key? key}) : super(key: key);
+  DialogSelect(this.buildContext, this.id, this.name, this.mail, this.address,
+      this.phone, this.position, this.baseImage,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +36,10 @@ class DialogSelect extends StatelessWidget {
             //     .read<EmployeedatadeleteBloc>()
             //     .add(DeleteEmployeedataEvent(id!));
             Navigator.pop(context);
-
-            Navigator.pushNamed(context, AppRoute.editemployeedata);
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => EditEmployeeDataPage(
+                    id, name, mail, address, phone, position, baseImage)));
+            //Navigator.pushNamed(context, AppRoute.editemployeedata);
           },
           child: Text('Edit data : $id'),
         ),

@@ -8,13 +8,13 @@ import '../../blocs/image_picker/image_picker_bloc.dart';
 import '../../data/repository/employee_repository.dart';
 
 class EditEmployeeDataPage extends StatelessWidget {
-  final int id;
-  final String name;
-  final String mail;
-  final String address;
-  final String phone;
-  final String position;
-  final String baseImage;
+  final int? id;
+  final String? name;
+  final String? mail;
+  final String? address;
+  final String? phone;
+  final String? position;
+  final String? baseImage;
 
   EditEmployeeDataPage(this.id, this.name, this.mail, this.address, this.phone,
       this.position, this.baseImage,
@@ -34,11 +34,11 @@ class EditEmployeeDataPage extends StatelessWidget {
         create: (BuildContext context) =>
             EmployeedataeditBloc(EmployeeRepository()));
     //set comtroller text
-    c_name.text = name;
-    c_mail.text = mail;
-    c_address.text = address;
-    c_phone.text = phone;
-    c_position.text = position;
+    c_name.text = name!;
+    c_mail.text = mail!;
+    c_address.text = address!;
+    c_phone.text = phone!;
+    c_position.text = position!;
     return Scaffold(
         appBar: AppBar(
           title: Text("Edit Employee Data : $id"),
