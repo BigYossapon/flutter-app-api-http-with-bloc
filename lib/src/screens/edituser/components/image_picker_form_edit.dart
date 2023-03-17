@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../main.dart';
 import '../../../blocs/api/employees_data_bloc/put/employeedataedit_bloc.dart';
 
 class ImagePickerFormEdit extends StatelessWidget {
@@ -32,6 +33,7 @@ class ImagePickerFormEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SnackBar snackBar;
     return Column(
       children: [
         Container(
@@ -71,13 +73,12 @@ class ImagePickerFormEdit extends StatelessWidget {
         BlocBuilder<EmployeedataeditBloc, EmployeedataeditState>(
             builder: (context, state) {
           if (state is EmployeedataeditedState) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.status),
-            ));
+            snackBar = SnackBar(content: Text(state.status));
+            snackbarKey.currentState?.showSnackBar(snackBar);
           }
           if (state is EmployeedataeditErrorState) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.status)));
+            snackBar = SnackBar(content: Text(state.status));
+            snackbarKey.currentState?.showSnackBar(snackBar);
           }
           return Container(
               child: file == null

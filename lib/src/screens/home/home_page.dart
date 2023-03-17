@@ -18,19 +18,23 @@ class MyHomePage extends StatelessWidget {
     final employeedatadeleteBloc = BlocProvider<EmployeedatadeleteBloc>(
         create: (BuildContext context) =>
             EmployeedatadeleteBloc(EmployeeRepository()));
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Detail Employees"),
-          actions: [
-            IconButton(
-              onPressed: () =>
-                  Navigator.pushNamed(context, AppRoute.addemployeedata),
-              icon: const Icon(Icons.add),
+
+    return MultiBlocProvider(
+        providers: [employeeDatagetBloc, employeedatadeleteBloc],
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text("Detail Employees"),
+              actions: [
+                IconButton(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, AppRoute.addemployeedata)
+                          .then((_) {
+                    employeeDatagetBloc;
+                  }),
+                  icon: const Icon(Icons.add),
+                ),
+              ],
             ),
-          ],
-        ),
-        body: MultiBlocProvider(
-            providers: [employeeDatagetBloc, employeedatadeleteBloc],
-            child: const employeeListview()));
+            body: const EmployeeListview()));
   }
 }

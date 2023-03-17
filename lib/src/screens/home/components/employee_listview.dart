@@ -6,21 +6,31 @@ import 'package:flutter_app_test01/components/dialog_select.dart';
 import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/delete/employeedatadelete_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../main.dart';
 import '../../../blocs/api/employees_data_bloc/get/employees/employeesdataget_bloc.dart';
 
 import '../../../data/model/employee_model.dart';
 import '../../../data/repository/employee_repository.dart';
 import '../../../res/string.dart';
 
-class employeeListview extends StatelessWidget {
-  const employeeListview({Key? key}) : super(key: key);
+class EmployeeListview extends StatelessWidget {
+  const EmployeeListview({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SnackBar snackBar;
     return BlocBuilder<EmployeesdatagetBloc, EmployeesdatagetState>(
         builder: (contextget, stateget) {
       return BlocBuilder<EmployeedatadeleteBloc, EmployeedatadeleteState>(
           builder: (contextdelete, statedelete) {
+        if (statedelete is EmployeedatadeletedState) {
+          contextget.read<EmployeesdatagetBloc>().add(LoadEmployeesdataEvent());
+          snackBar = SnackBar(content: Text(statedelete.status));
+          snackbarKey.currentState?.showSnackBar(snackBar);
+        } else if (statedelete is EmployeedatadeleteErrorgState) {
+          snackBar = SnackBar(content: Text(statedelete.error));
+          snackbarKey.currentState?.showSnackBar(snackBar);
+        }
         if (stateget is EmployeesDataLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -65,6 +75,7 @@ class employeeListview extends StatelessWidget {
                       onTap: () {
                         _dialogBuilder(
                             contextdelete,
+                            contextget,
                             employeeList[index].id,
                             employeeList[index].name,
                             employeeList[index].mail,
@@ -80,15 +91,7 @@ class employeeListview extends StatelessWidget {
                 );
               });
         }
-        if (statedelete is EmployeedatadeletedState) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(statedelete.status),
-          ));
-        } else if (statedelete is EmployeedatadeleteErrorgState) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(statedelete.error),
-          ));
-        }
+
         return const Text('error');
       });
     });
@@ -96,7 +99,8 @@ class employeeListview extends StatelessWidget {
 }
 
 Future<void> _dialogBuilder(
-    BuildContext buildcontext,
+    BuildContext buildcontextdelete,
+    BuildContext buildContextget,
     int? id,
     String? name,
     String? mail,
@@ -105,10 +109,10 @@ Future<void> _dialogBuilder(
     String? position,
     String? baseImage) {
   return showDialog<void>(
-    context: buildcontext,
+    context: buildcontextdelete,
     builder: (BuildContext context) {
-      return DialogSelect(
-          buildcontext, id, name, mail, address, phone, position, baseImage);
+      return DialogSelect(buildcontextdelete, buildContextget, id, name, mail,
+          address, phone, position, baseImage);
     },
   );
 }
