@@ -67,12 +67,13 @@ class ImagePickerFormAdd extends StatelessWidget {
         BlocBuilder<EmployeedataaddBloc, EmployeedataaddState>(
             builder: (context, state) {
           if (state is EmployeedataaddedState) {
-            snackBar = SnackBar(content: Text(state.status));
-            snackbarKey.currentState?.showSnackBar(snackBar);
+            // final SnackBar snackBar = SnackBar(content: Text(state.status));
+            // snackbarKey.currentState?.showSnackBar(snackBar);
+            Navigator.of(context).pop();
           }
           if (state is EmployeedataErrorState) {
-            snackBar = SnackBar(content: Text(state.status));
-            snackbarKey.currentState?.showSnackBar(snackBar);
+            // final SnackBar snackBar = SnackBar(content: Text(state.status));
+            // snackbarKey.currentState?.showSnackBar(snackBar);
           }
           return Container(
               child: file == null

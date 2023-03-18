@@ -9,8 +9,6 @@ import 'package:flutter_app_test01/src/screens/home/home_page.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-final GlobalKey<ScaffoldMessengerState> snackbarKey =
-    GlobalKey<ScaffoldMessengerState>();
 void main() {
   //runApp(const MyApp());
 
@@ -29,7 +27,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter api with bloc',
-      scaffoldMessengerKey: snackbarKey,
       routes: AppRoute().getAll,
       theme: ThemeData(
         primarySwatch: Colors.blue,

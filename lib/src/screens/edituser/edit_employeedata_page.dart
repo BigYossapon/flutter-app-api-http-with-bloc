@@ -8,6 +8,7 @@ import '../../blocs/image_picker/image_picker_bloc.dart';
 import '../../data/repository/employee_repository.dart';
 
 class EditEmployeeDataPage extends StatelessWidget {
+  final BuildContext buildContextget;
   final int? id;
   final String? name;
   final String? mail;
@@ -16,8 +17,8 @@ class EditEmployeeDataPage extends StatelessWidget {
   final String? position;
   final String? baseImage;
 
-  EditEmployeeDataPage(this.id, this.name, this.mail, this.address, this.phone,
-      this.position, this.baseImage,
+  EditEmployeeDataPage(this.buildContextget, this.id, this.name, this.mail,
+      this.address, this.phone, this.position, this.baseImage,
       {Key? key})
       : super(key: key);
   TextEditingController c_name = TextEditingController();
@@ -109,12 +110,14 @@ class EditEmployeeDataPage extends StatelessWidget {
                     ),
                   ),
                   BlocBuilder<ImagePickerBloc, ImagePickerState>(
-                    builder: (context, state) {
+                    builder: (contextimagepicker, state) {
                       if (state is ImagePickerPickedState) {
                         return Column(
                           children: [
                             ImagePickerFormEdit(
-                                context,
+                                buildContextget,
+                                id,
+                                contextimagepicker,
                                 state.file,
                                 c_name.text,
                                 c_mail.text,
@@ -125,8 +128,17 @@ class EditEmployeeDataPage extends StatelessWidget {
                           ],
                         );
                       }
-                      return ImagePickerFormEdit(context, null, null, null,
-                          null, null, null, baseImage);
+                      return ImagePickerFormEdit(
+                          buildContextget,
+                          id,
+                          contextimagepicker,
+                          null,
+                          c_name.text,
+                          c_mail.text,
+                          c_address.text,
+                          c_phone.text,
+                          c_position.text,
+                          baseImage);
                     },
                   )
                 ],

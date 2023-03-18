@@ -23,7 +23,7 @@ class EmployeedataeditBloc
             event.phone!,
             event.address!,
             event.position!,
-            event.file!);
+            event.file);
         emit(EmployeedataeditedState('edit success'));
       } catch (e) {
         emit(EmployeedataeditErrorState(e.toString()));

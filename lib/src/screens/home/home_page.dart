@@ -21,20 +21,6 @@ class MyHomePage extends StatelessWidget {
 
     return MultiBlocProvider(
         providers: [employeeDatagetBloc, employeedatadeleteBloc],
-        child: Scaffold(
-            appBar: AppBar(
-              title: Text("Detail Employees"),
-              actions: [
-                IconButton(
-                  onPressed: () =>
-                      Navigator.pushNamed(context, AppRoute.addemployeedata)
-                          .then((_) {
-                    employeeDatagetBloc;
-                  }),
-                  icon: const Icon(Icons.add),
-                ),
-              ],
-            ),
-            body: const EmployeeListview()));
+        child: EmployeeListview());
   }
 }

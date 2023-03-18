@@ -18,7 +18,7 @@ class EmployeedatadeleteBloc
 
         emit(EmployeedatadeletedState('Delete Success'));
       } catch (e) {
-        emit(EmployeedatadeleteErrorgState(e.toString()));
+        emit(EmployeedatadeleteErrorState(e.toString()));
         print(e.toString());
       }
     });

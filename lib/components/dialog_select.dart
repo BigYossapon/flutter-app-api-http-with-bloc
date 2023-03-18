@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_app_test01/components/alert_dialog.dart';
 import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/delete/employeedatadelete_bloc.dart';
 import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/get/employees/employeesdataget_bloc.dart';
 import 'package:flutter_app_test01/src/screens/edituser/edit_employeedata_page.dart';
@@ -46,25 +47,31 @@ class DialogSelect extends StatelessWidget {
             //     .read<EmployeedatadeleteBloc>()
             //     .add(DeleteEmployeedataEvent(id!));
             Navigator.pop(context);
-            Navigator.of(context)
-                .push(MaterialPageRoute(
-                    builder: (_) => EditEmployeeDataPage(
-                        id, name, mail, address, phone, position, baseImage)))
-                .then((_) {
-              buildContextget
-                  .read<EmployeesdatagetBloc>()
-                  .add(LoadEmployeesdataEvent());
-            });
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => EditEmployeeDataPage(buildContextget, id, name,
+                    mail, address, phone, position, baseImage)));
+
             //Navigator.pushNamed(context, AppRoute.editemployeedata);
           },
           child: Text('Edit data : $id'),
         ),
         SimpleDialogOption(
-          onPressed: () {
+          onPressed: () async {
             Navigator.pop(context);
-            buildContextdelete
-                .read<EmployeedatadeleteBloc>()
-                .add(DeleteEmployeedataEvent(id!));
+            final result = await showDialog(
+              context: context,
+              barrierDismissible: false, // user must tap button!
+              builder: (BuildContext context) {
+                return const AlertDialogdelete();
+              },
+            );
+
+            if (result) {
+              buildContextdelete
+                  .read<EmployeedatadeleteBloc>()
+                  .add(DeleteEmployeedataEvent(id!));
+              Navigator.pop(context);
+            }
           },
           child: Text('Delete data : $id'),
         ),
@@ -77,4 +84,14 @@ class DialogSelect extends StatelessWidget {
       ],
     );
   }
+}
+
+Future<void> _showAlertDialog(BuildContext context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return const AlertDialogdelete();
+    },
+  );
 }
