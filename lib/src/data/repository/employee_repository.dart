@@ -74,7 +74,7 @@ class EmployeeRepository {
         ..fields.addAll(body)
         ..headers.addAll(headers)
         ..files.add(
-            await http.MultipartFile.fromPath('Image_employee', file!.path));
+            await http.MultipartFile.fromPath('Image_employee', file.path));
     } else {
       request = await http.MultipartRequest('PUT', Uri.parse(url))
         ..fields.addAll(body)
