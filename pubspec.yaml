@@ -43,6 +43,7 @@ dependencies:
   permission_handler: ^10.2.0
   injectable: ^2.1.0
   get_it: ^7.2.0
+  fluttertoast: ^8.2.1
   
 
 dev_dependencies:

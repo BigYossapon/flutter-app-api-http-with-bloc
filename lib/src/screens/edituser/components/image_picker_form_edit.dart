@@ -11,6 +11,7 @@ import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/post/employ
 import 'package:flutter_app_test01/src/blocs/image_picker/image_picker_bloc.dart';
 import 'package:flutter_app_test01/src/data/model/employee_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -30,9 +31,9 @@ class ImagePickerFormEdit extends StatelessWidget {
   final String? baseImage;
 
   ImagePickerFormEdit(
+      this.buildContext,
       this.buildContextget,
       this.id,
-      this.buildContext,
       this.file,
       this.name,
       this.mail,
@@ -84,15 +85,31 @@ class ImagePickerFormEdit extends StatelessWidget {
         BlocConsumer<EmployeedataeditBloc, EmployeedataeditState>(
             listener: (contextedit, stateedit) {
           if (stateedit is EmployeedataeditedState) {
+            Fluttertoast.showToast(
+                msg: stateedit.status,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                textColor: Colors.white,
+                fontSize: 16.0);
             buildContextget
                 .read<EmployeesdatagetBloc>()
                 .add(LoadEmployeesdataEvent());
+          }
+          if (stateedit is EmployeedataeditErrorState) {
+            Fluttertoast.showToast(
+                msg: stateedit.status,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                textColor: Colors.white,
+                fontSize: 16.0);
           }
         }, builder: (contextedit, state) {
           if (state is EmployeedataeditedState) {
             // final SnackBar snackBar = SnackBar(content: Text(state.status));
             // snackbarKey.currentState?.showSnackBar(snackBar);
-            Navigator.pop(context);
+            // Navigator.of(context).pop();
           }
           if (state is EmployeedataeditErrorState) {
             // final SnackBar snackBar = SnackBar(content: Text(state.status));
