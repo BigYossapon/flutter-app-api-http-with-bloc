@@ -58,98 +58,105 @@ class EmployeeListview extends StatelessWidget {
                 ),
               ],
             ),
-            body: BlocConsumer<EmployeedatadeleteBloc, EmployeedatadeleteState>(
-                listener: (contextdelete, statedelete) {
-              if (statedelete is EmployeedatadeletedState) {
-                Fluttertoast.showToast(
-                    msg: statedelete.status,
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
-                contextget
-                    .read<EmployeesdatagetBloc>()
-                    .add(LoadEmployeesdataEvent());
-              }
-              if (statedelete is EmployeedatadeleteErrorState) {
-                Fluttertoast.showToast(
-                    msg: statedelete.status,
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
-              }
-            }, builder: (contextdelete, statedelete) {
-              if (statedelete is EmployeedatadeletedState) {
-              } else if (statedelete is EmployeedatadeleteErrorState) {}
+            body: RefreshIndicator(
+                onRefresh: () async {
+                  contextget
+                      .read<EmployeesdatagetBloc>()
+                      .add(LoadEmployeesdataEvent());
+                },
+                child: BlocConsumer<EmployeedatadeleteBloc,
+                        EmployeedatadeleteState>(
+                    listener: (contextdelete, statedelete) {
+                  if (statedelete is EmployeedatadeletedState) {
+                    Fluttertoast.showToast(
+                        msg: statedelete.status,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                    contextget
+                        .read<EmployeesdatagetBloc>()
+                        .add(LoadEmployeesdataEvent());
+                  }
+                  if (statedelete is EmployeedatadeleteErrorState) {
+                    Fluttertoast.showToast(
+                        msg: statedelete.status,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  }
+                }, builder: (contextdelete, statedelete) {
+                  if (statedelete is EmployeedatadeletedState) {
+                  } else if (statedelete is EmployeedatadeleteErrorState) {}
 
-              if (stateget is EmployeesDataLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (stateget is EmployeesDataLoadedState) {
-                List<EmployeeModel> employeeList = stateget.employees;
-                return ListView.builder(
-                    itemCount: employeeList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (_, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 8),
-                        child: Card(
-                          color: Theme.of(context).primaryColor,
-                          child: ListTile(
-                            title: Text(
-                              '${employeeList[index].name}',
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            subtitle: Text(
-                              'Mail:${employeeList[index].mail}\nPhone:${employeeList[index].phone}\nAddress:${employeeList[index].address}\nPosition:${employeeList[index].position}',
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            leading: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage('assets/images/placeholder.jpg'),
-                              child: CircleAvatar(
-                                  radius: 65,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage: NetworkImage(
+                  if (stateget is EmployeesDataLoadingState) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (stateget is EmployeesDataLoadedState) {
+                    List<EmployeeModel> employeeList = stateget.employees;
+                    return ListView.builder(
+                        itemCount: employeeList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (_, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 8),
+                            child: Card(
+                              color: Theme.of(context).primaryColor,
+                              child: ListTile(
+                                title: Text(
+                                  '${employeeList[index].name}',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                subtitle: Text(
+                                  'Mail:${employeeList[index].mail}\nPhone:${employeeList[index].phone}\nAddress:${employeeList[index].address}\nPosition:${employeeList[index].position}',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                leading: CircleAvatar(
+                                  backgroundImage: AssetImage(
+                                      'assets/images/placeholder.jpg'),
+                                  child: CircleAvatar(
+                                      radius: 65,
+                                      backgroundColor: Colors.transparent,
+                                      backgroundImage: NetworkImage(
+                                          AppStrings.employeedomain +
+                                              'uploads/' +
+                                              employeeList[index]
+                                                  .imageEmployee
+                                                  .toString(),
+                                          headers: {
+                                            "Content-type": "application/json",
+                                            "Accept": "application/json",
+                                          })),
+                                ),
+                                onTap: () {
+                                  _dialogBuilder(
+                                      contextdelete,
+                                      contextget,
+                                      employeeList[index].id,
+                                      employeeList[index].name,
+                                      employeeList[index].mail,
+                                      employeeList[index].address,
+                                      employeeList[index].phone,
+                                      employeeList[index].position,
                                       AppStrings.employeedomain +
                                           'uploads/' +
                                           employeeList[index]
                                               .imageEmployee
-                                              .toString(),
-                                      headers: {
-                                        "Content-type": "application/json",
-                                        "Accept": "application/json",
-                                      })),
+                                              .toString());
+                                },
+                              ),
                             ),
-                            onTap: () {
-                              _dialogBuilder(
-                                  contextdelete,
-                                  contextget,
-                                  employeeList[index].id,
-                                  employeeList[index].name,
-                                  employeeList[index].mail,
-                                  employeeList[index].address,
-                                  employeeList[index].phone,
-                                  employeeList[index].position,
-                                  AppStrings.employeedomain +
-                                      'uploads/' +
-                                      employeeList[index]
-                                          .imageEmployee
-                                          .toString());
-                            },
-                          ),
-                        ),
-                      );
-                    });
-              }
+                          );
+                        });
+                  }
 
-              return Container();
-            }));
+                  return Container();
+                })));
       }
       return Scaffold(
           appBar: AppBar(
