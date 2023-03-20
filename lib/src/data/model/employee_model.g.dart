@@ -8,22 +8,22 @@ part of 'employee_model.dart';
 
 EmployeeModel _$EmployeeModelFromJson(Map<String, dynamic> json) =>
     EmployeeModel(
-      id: json['ID'] as int?,
-      name: json['Name'] as String?,
-      phone: json['Phone'] as String?,
-      address: json['Address'] as String?,
-      position: json['Position'] as String?,
-      mail: json['Mail'] as String?,
-      imageEmployee: json['Image_employee'] as String?,
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      phone: json['phone'] as String?,
+      address: json['address'] as String?,
+      position: json['position'] as String?,
+      mail: json['mail'] as String?,
+      imageEmployee: json['imageEmployee'] as String?,
     );
 
 Map<String, dynamic> _$EmployeeModelToJson(EmployeeModel instance) =>
     <String, dynamic>{
-      'ID': instance.id,
-      'Name': instance.name,
-      'Phone': instance.phone,
-      'Address': instance.address,
-      'Position': instance.position,
-      'Mail': instance.mail,
-      'Image_employee': instance.imageEmployee,
+      'id': instance.id,
+      'name': instance.name,
+      'phone': instance.phone,
+      'address': instance.address,
+      'position': instance.position,
+      'mail': instance.mail,
+      'imageEmployee': instance.imageEmployee,
     };
