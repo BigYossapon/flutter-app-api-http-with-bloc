@@ -44,6 +44,8 @@ dependencies:
   injectable: ^2.1.0
   get_it: ^7.2.0
   fluttertoast: ^8.2.1
+  dio: ^5.0.3
+  retrofit: ^4.0.1
   
 
 dev_dependencies:
@@ -59,6 +61,8 @@ dev_dependencies:
   json_serializable: ^6.6.0
   flutter_lints: ^1.0.0
   injectable_generator:  ^2.1.0
+ 
+  retrofit_generator: '>=5.0.0 <6.0.0'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

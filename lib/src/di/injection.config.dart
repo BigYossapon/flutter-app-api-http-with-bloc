@@ -5,8 +5,14 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/post/employeedataadd_bloc.dart' as _i5;
 import 'package:get_it/get_it.dart' as _i1;
+import 'package:http/http.dart';
 import 'package:injectable/injectable.dart' as _i2;
+import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/get/employees/employeesdataget_bloc.dart'as _i3;
+import 'package:flutter_app_test01/src/data/repository/employee_repository.dart'as _i4;
+
+import '../data/repository/employee_repository.dart';
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -21,5 +27,8 @@ _i1.GetIt $initGetIt(
     environment,
     environmentFilter,
   );
+
+  gh.factory<_i3.EmployeesdatagetBloc>(() => _i3.EmployeesdatagetBloc(get<EmployeeRepository>()));
+  gh.factory<EmployeedataaddBloc>(() => null)
   return getIt;
 }
