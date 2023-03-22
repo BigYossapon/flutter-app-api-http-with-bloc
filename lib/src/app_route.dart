@@ -6,12 +6,10 @@ import 'package:flutter_app_test01/src/screens/home/home_page.dart';
 class AppRoute {
   static const home = 'home';
   static const addemployeedata = 'addemployeedata';
-  static const editemployeedata = 'editemployeedata';
 
   final _route = <String, WidgetBuilder>{
-    home: (context) => const MyHomePage(title: "HomePage"),
+    home: (context) => const MyHomePage(),
     addemployeedata: (context) => const AddUserDataPage(),
-    editemployeedata: (context) => const EditEmployeeDataPage()
   };
 
   get getAll => _route;

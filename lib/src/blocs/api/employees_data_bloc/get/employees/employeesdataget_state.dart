@@ -15,6 +15,10 @@ class EmployeesDataLoadedState extends EmployeesdatagetState {
   @override
   // TODO: implement props
   List<Object?> get props => [employees];
+
+  EmployeesDataLoadedState copyWith({List<EmployeeModel>? employees}) {
+    return EmployeesDataLoadedState(employees ?? this.employees);
+  }
 }
 
 class EmployeesDataErrorState extends EmployeesdatagetState {

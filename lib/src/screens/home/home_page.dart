@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/delete/employeedatadelete_bloc.dart';
 import 'package:flutter_app_test01/src/screens/home/components/employee_listview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../app_route.dart';
+import '../../blocs/api/employees_data_bloc/get/employees/employeesdataget_bloc.dart';
+import '../../data/repository/employee_repository.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key}) : super(key: key);
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final employeeDatagetBloc = BlocProvider<EmployeesdatagetBloc>(
+        create: (BuildContext context) =>
+            EmployeesdatagetBloc(EmployeeRepository())
+              ..add(LoadEmployeesdataEvent()));
+    final employeedatadeleteBloc = BlocProvider<EmployeedatadeleteBloc>(
+        create: (BuildContext context) =>
+            EmployeedatadeleteBloc(EmployeeRepository()));
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text("Detail Employees"),
           actions: [
             IconButton(
               onPressed: () =>
@@ -26,6 +29,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-        body: employeeListview());
+        body: MultiBlocProvider(
+            providers: [employeeDatagetBloc, employeedatadeleteBloc],
+            child: const employeeListview()));
   }
 }

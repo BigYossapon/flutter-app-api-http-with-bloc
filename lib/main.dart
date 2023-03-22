@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test01/src/app_route.dart';
 import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/get/employees/employeesdataget_bloc.dart';
+import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/post/employeedataadd_bloc.dart';
 import 'package:flutter_app_test01/src/blocs/app_bloc_observe.dart';
+import 'package:flutter_app_test01/src/blocs/image_picker/image_picker_bloc.dart';
 import 'package:flutter_app_test01/src/data/repository/employee_repository.dart';
 import 'package:flutter_app_test01/src/screens/home/home_page.dart';
 
@@ -23,20 +25,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final employeeDataBloc = BlocProvider<EmployeesdatagetBloc>(
-        create: (BuildContext context) =>
-            EmployeesdatagetBloc(EmployeeRepository()));
-
-    return MultiBlocProvider(
-      providers: [employeeDataBloc],
-      child: MaterialApp(
-        title: 'Flutter api with bloc',
-        routes: AppRoute().getAll,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const MyHomePage(title: 'HomePage'),
+    return MaterialApp(
+      title: 'Flutter api with bloc',
+      routes: AppRoute().getAll,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: const MyHomePage(),
     );
   }
 }
