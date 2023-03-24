@@ -56,7 +56,7 @@ class EmployeeRepository {
 
   @override
   Future<void> putEmployeeData(int id, String name, String mail, String phone,
-      String address, String position, File file) async {
+      String address, String position, File? file) async {
     Map<String, String> body = {
       'Name': name,
       'Mail': mail,
@@ -68,10 +68,20 @@ class EmployeeRepository {
       'Content-Type': 'multipart/form-data',
     };
     String url = AppStrings.employeeUrl + 'edit/part/$id';
-    final request = await http.MultipartRequest('PUT', Uri.parse(url))
-      ..fields.addAll(body)
-      ..headers.addAll(headers)
-      ..files;
+    final MultipartRequest request;
+    if (file != null) {
+      request = await http.MultipartRequest('PUT', Uri.parse(url))
+        ..fields.addAll(body)
+        ..headers.addAll(headers)
+        ..files.add(
+            await http.MultipartFile.fromPath('Image_employee', file.path));
+    } else {
+      request = await http.MultipartRequest('PUT', Uri.parse(url))
+        ..fields.addAll(body)
+        ..headers.addAll(headers)
+        ..files.add;
+    }
+
     final response = await request.send();
     if (response.statusCode != 200) {
       throw Exception(response.reasonPhrase);

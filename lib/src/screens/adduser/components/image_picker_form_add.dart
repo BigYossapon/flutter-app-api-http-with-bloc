@@ -10,11 +10,16 @@ import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/post/employ
 import 'package:flutter_app_test01/src/blocs/image_picker/image_picker_bloc.dart';
 import 'package:flutter_app_test01/src/data/model/employee_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../main.dart';
+import '../../../blocs/api/employees_data_bloc/get/employees/employeesdataget_bloc.dart';
+
 class ImagePickerFormAdd extends StatelessWidget {
-  final BuildContext buildContext;
+  final BuildContext buildContextpicker;
+  final BuildContext buildContextget;
   final File? file;
   final String? name;
   final String? mail;
@@ -22,8 +27,8 @@ class ImagePickerFormAdd extends StatelessWidget {
   final String? phone;
   final String? position;
 
-  ImagePickerFormAdd(this.buildContext, this.file, this.name, this.mail,
-      this.address, this.phone, this.position,
+  ImagePickerFormAdd(this.buildContextpicker, this.buildContextget, this.file,
+      this.name, this.mail, this.address, this.phone, this.position,
       {Key? key})
       : super(key: key);
 
@@ -45,7 +50,7 @@ class ImagePickerFormAdd extends StatelessWidget {
               child: ElevatedButton.icon(
                   onPressed: () {
                     print("press gallery");
-                    requestGalleryPermission(buildContext);
+                    requestGalleryPermission(buildContextpicker);
                   },
                   icon: const Icon(Icons.browse_gallery),
                   label: const Text('choose image from gallery')),
@@ -54,23 +59,46 @@ class ImagePickerFormAdd extends StatelessWidget {
               child: ElevatedButton.icon(
                   onPressed: () {
                     print("press camera");
-                    requestCameraPermission(buildContext);
+                    requestCameraPermission(buildContextpicker);
                   },
                   icon: const Icon(Icons.camera),
                   label: const Text('choose image from camera')),
             )
           ],
         ),
-        BlocBuilder<EmployeedataaddBloc, EmployeedataaddState>(
-            builder: (context, state) {
+        BlocConsumer<EmployeedataaddBloc, EmployeedataaddState>(
+            listener: (context, state) {
           if (state is EmployeedataaddedState) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.status),
-            ));
+            Navigator.of(context).pop();
+            Fluttertoast.showToast(
+                msg: state.status,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                textColor: Colors.white,
+                fontSize: 16.0);
+            buildContextget
+                .read<EmployeesdatagetBloc>()
+                .add(LoadEmployeesdataEvent());
           }
           if (state is EmployeedataErrorState) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.status)));
+            Fluttertoast.showToast(
+                msg: state.status,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }, builder: (context, state) {
+          if (state is EmployeedataaddedState) {
+            // final SnackBar snackBar = SnackBar(content: Text(state.status));
+            // snackbarKey.currentState?.showSnackBar(snackBar);
+            //Navigator.of(context).pop();
+          }
+          if (state is EmployeedataErrorState) {
+            // final SnackBar snackBar = SnackBar(content: Text(state.status));
+            // snackbarKey.currentState?.showSnackBar(snackBar);
           }
           return Container(
               child: file == null
@@ -94,7 +122,7 @@ Future requestCameraPermission(BuildContext buildContext) async {
   var status = await Permission.camera.status;
   if (status.isGranted) {
     print("Permission is granted");
-    pickImage(ImageSource.gallery, buildContext);
+    pickImage(ImageSource.camera, buildContext);
   } else if (status.isDenied) {
     // We didn't ask for permission yet or the permission has been denied before but not permanently.
     if (await Permission.camera.request().isGranted) {

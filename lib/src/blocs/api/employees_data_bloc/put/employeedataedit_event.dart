@@ -19,6 +19,5 @@ class EditEmployeedataEvent extends EmployeedataeditEvent {
   EditEmployeedataEvent(this.id, this.name, this.mail, this.phone, this.address,
       this.position, this.file);
   @override
-  List<Object> get props =>
-      [id!, name!, mail!, phone!, address!, position!, file!];
+  List<Object> get props => [id!, name!, mail!, phone!, address!, position!];
 }

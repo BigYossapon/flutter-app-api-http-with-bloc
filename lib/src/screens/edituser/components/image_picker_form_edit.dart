@@ -6,17 +6,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/get/employees/employeesdataget_bloc.dart';
 import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/post/employeedataadd_bloc.dart';
 import 'package:flutter_app_test01/src/blocs/image_picker/image_picker_bloc.dart';
 import 'package:flutter_app_test01/src/data/model/employee_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../main.dart';
 import '../../../blocs/api/employees_data_bloc/put/employeedataedit_bloc.dart';
 
 class ImagePickerFormEdit extends StatelessWidget {
+  final BuildContext buildContextget;
   final BuildContext buildContext;
+  final int? id;
   final File? file;
   final String? name;
   final String? mail;
@@ -25,8 +30,17 @@ class ImagePickerFormEdit extends StatelessWidget {
   final String? position;
   final String? baseImage;
 
-  ImagePickerFormEdit(this.buildContext, this.file, this.name, this.mail,
-      this.address, this.phone, this.position, this.baseImage,
+  ImagePickerFormEdit(
+      this.buildContext,
+      this.buildContextget,
+      this.id,
+      this.file,
+      this.name,
+      this.mail,
+      this.address,
+      this.phone,
+      this.position,
+      this.baseImage,
       {Key? key})
       : super(key: key);
 
@@ -68,28 +82,48 @@ class ImagePickerFormEdit extends StatelessWidget {
           ],
         ),
         //bloc edit data
-        BlocBuilder<EmployeedataeditBloc, EmployeedataeditState>(
-            builder: (context, state) {
+        BlocConsumer<EmployeedataeditBloc, EmployeedataeditState>(
+            listener: (contextedit, stateedit) {
+          if (stateedit is EmployeedataeditedState) {
+            Fluttertoast.showToast(
+                msg: stateedit.status,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                textColor: Colors.white,
+                fontSize: 16.0);
+            buildContextget
+                .read<EmployeesdatagetBloc>()
+                .add(LoadEmployeesdataEvent());
+          }
+          if (stateedit is EmployeedataeditErrorState) {
+            Fluttertoast.showToast(
+                msg: stateedit.status,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }, builder: (contextedit, state) {
           if (state is EmployeedataeditedState) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.status),
-            ));
+            // final SnackBar snackBar = SnackBar(content: Text(state.status));
+            // snackbarKey.currentState?.showSnackBar(snackBar);
+            // Navigator.of(context).pop();
           }
           if (state is EmployeedataeditErrorState) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.status)));
+            // final SnackBar snackBar = SnackBar(content: Text(state.status));
+            // snackbarKey.currentState?.showSnackBar(snackBar);
           }
-          return Container(
-              child: file == null
-                  ? Container()
-                  : ElevatedButton.icon(
-                      onPressed: () {
-                        context.read<EmployeedataaddBloc>().add(
-                            AddEmployeedataEvent(name!, mail!, address!, phone!,
-                                position!, file!));
-                      },
-                      icon: const Icon(Icons.edit),
-                      label: const Text('Edit data')));
+          return ElevatedButton.icon(
+              onPressed: () {
+                contextedit.read<EmployeedataeditBloc>().add(
+                    EditEmployeedataEvent(
+                        id!, name!, mail!, address!, phone!, position!, file));
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.edit),
+              label: const Text('Edit data'));
         }),
       ],
     );

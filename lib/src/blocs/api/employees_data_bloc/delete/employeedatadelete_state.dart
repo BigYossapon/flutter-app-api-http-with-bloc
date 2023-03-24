@@ -14,9 +14,9 @@ class EmployeedatadeletedState extends EmployeedatadeleteState {
   List<Object> get props => [status];
 }
 
-class EmployeedatadeleteErrorgState extends EmployeedatadeleteState {
-  String error;
-  EmployeedatadeleteErrorgState(this.error);
+class EmployeedatadeleteErrorState extends EmployeedatadeleteState {
+  String status;
+  EmployeedatadeleteErrorState(this.status);
   @override
-  List<Object> get props => [error];
+  List<Object> get props => [status];
 }

@@ -5,6 +5,7 @@ import 'package:flutter_app_test01/src/blocs/api/employees_data_bloc/post/employ
 import 'package:flutter_app_test01/src/blocs/app_bloc_observe.dart';
 import 'package:flutter_app_test01/src/blocs/image_picker/image_picker_bloc.dart';
 import 'package:flutter_app_test01/src/data/repository/employee_repository.dart';
+import 'package:flutter_app_test01/src/di/Injection.dart';
 import 'package:flutter_app_test01/src/screens/home/home_page.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,9 @@ void main() {
   //runApp(const MyApp());
 
   BlocOverrides.runZoned(
-    () {
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await configureDependencies();
       runApp(const MyApp());
     },
     blocObserver: AppBlocObserver(),
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
